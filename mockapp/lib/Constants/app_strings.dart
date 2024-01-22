@@ -1,6 +1,4 @@
 class AppStrings {
-  const AppStrings._();
-
   static const String loginAndRegister = 'Login and Register UI';
   static const String uhOhPageNotFound = 'uh-oh!\nPage not found';
   static const String register = 'Register';
@@ -18,8 +16,10 @@ class AppStrings {
   static const String loggedIn = 'Logged In!';
   static const String registrationComplete = 'Registration Complete!';
 
-  static const String name = 'Name';
-  static const String pleaseEnterName = 'Please, Enter Name';
+  static const String firstName = 'First name';
+  static const String lastName = 'Last name';
+  static const String pleaseEnterFirstName = 'Please, Enter First Name';
+  static const String pleaseEnterLastName = 'Please, Enter Last Name';
   static const String invalidName = 'Invalid Name';
 
   static const String email = 'Email';
@@ -27,10 +27,15 @@ class AppStrings {
   static const String invalidEmailAddress = 'Invalid Email Address';
 
   static const String password = 'Password';
+  static const String newPassword = 'New Password';
+  static const String oldPassword = 'Old Password';
   static const String pleaseEnterPassword = 'Please, Enter Password';
   static const String invalidPassword = 'Invalid Password';
 
   static const String confirmPassword = 'Confirm Password';
   static const String pleaseReEnterPassword = 'Please, Re-Enter Password';
   static const String passwordNotMatched = 'Password not matched!';
+
+  static const String successMessage =
+      'You have successfuly changed your passsword!';
 }

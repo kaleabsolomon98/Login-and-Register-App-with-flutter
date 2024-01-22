@@ -6,20 +6,32 @@ import 'custom_colors.dart';
 
 TextStyle titleLarge = TextStyle(
   fontWeight: FontWeight.bold,
-  color: primaryTextColor,
+  color: kprimaryTextColor,
   fontSize: 34,
   letterSpacing: 0.5,
 );
 
 TextStyle lightBodySmall = TextStyle(
-  color: secondaryTextColor,
+  color: ksecondaryTextColor,
   letterSpacing: 0.5,
 );
 
 TextStyle darkBodySmall = TextStyle(
-  color: secondaryTextColor,
+  color: ksecondaryTextColor,
   letterSpacing: 0.5,
 );
+
+TextStyle errorText = TextStyle(
+    color: kerrorTextColor,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    fontStyle: FontStyle.italic);
+
+TextStyle successText = const TextStyle(
+    color: kdarkBlue,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    fontStyle: FontStyle.italic);
 
 const textFormFieldBorder = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(12)),

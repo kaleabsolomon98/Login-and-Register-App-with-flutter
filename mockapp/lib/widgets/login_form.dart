@@ -1,11 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:form_validator/form_validator.dart';
+
+// Project imports:
 import 'package:mockapp/Constants/app_strings.dart';
+import 'package:mockapp/Providers/authentication/login_provider.dart';
 import 'package:mockapp/Theme/text_styles.dart';
 import 'package:mockapp/Utils/Icons_asset.dart';
-import 'package:mockapp/Utils/password_strength_checker.dart';
+import 'package:mockapp/Utils/authentication_status.dart';
+import 'package:mockapp/Utils/validator.dart';
 import 'package:mockapp/widgets/common/generic_textfield.dart';
+import 'package:mockapp/widgets/common/loading_widget.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -16,13 +24,13 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final _emailKey = GlobalKey<FormFieldState>();
-  final _passwordKey = GlobalKey<FormFieldState>();
 
   late final TextEditingController emailController = TextEditingController();
   late final TextEditingController passwordController = TextEditingController();
 
   bool showPassword = false;
+
+  late AuthenticationProvider authProvider;
 
   @override
   void dispose() {
@@ -34,9 +42,9 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    authProvider = Provider.of<AuthenticationProvider>(context, listen: true);
     return Form(
       key: _formKey,
-      // autovalidateMode:AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -44,30 +52,21 @@ class _LoginFormState extends State<LoginForm> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             GenericTextField(
-              key: _emailKey,
               controller: emailController,
               labelText: AppStrings.email,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
-              onChanged: (val) => _emailKey.currentState?.validate(),
-              validator: ValidationBuilder().email().build(),
+              onChanged: (value) => authProvider.username = value,
+              validator: (val) => emailValidator(val!),
             ),
             GenericTextField(
-              key: _passwordKey,
               obscureText: showPassword,
               controller: passwordController,
               labelText: AppStrings.password,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.visiblePassword,
-              onChanged: (val) => _passwordKey.currentState?.validate(),
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return 'The field is required';
-                } else if (!PasswordStrengthCheker.isStrongPassword(val)) {
-                  return 'Password is weak';
-                }
-                return null;
-              },
+              onChanged: (value) => authProvider.password = value,
+              validator: (val) => passwordValidator(val!),
               suffixIcon: IconButton(
                 style: IconButton.styleFrom(
                   minimumSize: const Size.square(48),
@@ -86,6 +85,14 @@ class _LoginFormState extends State<LoginForm> {
                 },
               ),
             ),
+            authProvider.errorMessage == ""
+                ? const SizedBox(height: 0)
+                : Center(
+                    child: Text(
+                      authProvider.errorMessage,
+                      style: errorText,
+                    ),
+                  ),
             TextButton(
               onPressed: () {},
               child: const Text(AppStrings.forgotPassword),
@@ -94,8 +101,10 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               width: screenWidth * 0.9,
               child: FilledButton(
-                onPressed: () {},
-                child: const Text(AppStrings.login),
+                onPressed: () => onSubmitPressed(context),
+                child: authProvider.loadingStatus == LoadingStatus.started
+                    ? loadingWidget
+                    : const Text(AppStrings.login),
               ),
             ),
             const SizedBox(height: 20),
@@ -139,5 +148,12 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+  }
+
+  onSubmitPressed(BuildContext context) async {
+    authProvider.resetErrorMessage();
+    if (_formKey.currentState!.validate()) {
+      authProvider.signIn();
+    }
   }
 }

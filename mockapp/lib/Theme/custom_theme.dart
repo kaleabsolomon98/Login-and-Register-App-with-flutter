@@ -1,11 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'text_styles.dart';
 import 'custom_colors.dart';
 
 final ThemeData themeData = ThemeData(
   useMaterial3: true,
-  colorSchemeSeed: primaryColor,
+  colorSchemeSeed: kprimaryColor,
   scaffoldBackgroundColor: Colors.white,
   textTheme: const TextTheme(
     titleLarge: TextStyle(
@@ -41,7 +43,7 @@ final ThemeData themeData = ThemeData(
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      foregroundColor: primaryColor,
+      foregroundColor: kprimaryColor,
       padding: const EdgeInsets.all(4),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -51,7 +53,7 @@ final ThemeData themeData = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: primaryColor,
+      foregroundColor: kprimaryColor,
       minimumSize: const Size(double.infinity, 50),
       side: BorderSide(color: Colors.grey.shade200),
       shape: const RoundedRectangleBorder(
@@ -62,7 +64,7 @@ final ThemeData themeData = ThemeData(
   filledButtonTheme: FilledButtonThemeData(
     style: FilledButton.styleFrom(
       foregroundColor: Colors.black,
-      backgroundColor: primaryColor,
+      backgroundColor: kprimaryColor,
       disabledBackgroundColor: Colors.grey.shade300,
       minimumSize: const Size(double.infinity, 52),
       shape: const RoundedRectangleBorder(

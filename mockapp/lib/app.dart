@@ -1,6 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:mockapp/Theme/custom_theme.dart';
-import 'package:mockapp/Views/login_page.dart';
+import 'package:mockapp/Views/splash_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeData,
-      home: const LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }

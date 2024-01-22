@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class GenericTextField extends StatelessWidget {
@@ -35,14 +36,10 @@ class GenericTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        focusNode: FocusNode(),
         onChanged: onChanged,
-        autofocus: autofocus ?? false,
         validator: validator,
         obscureText: obscureText ?? false,
         obscuringCharacter: '*',
-        onEditingComplete: onEditingComplete,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           labelText: labelText,

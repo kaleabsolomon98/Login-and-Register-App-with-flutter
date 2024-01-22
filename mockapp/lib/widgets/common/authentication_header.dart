@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:mockapp/Theme/custom_colors.dart';
 import 'package:mockapp/Utils/extension.dart';
 
