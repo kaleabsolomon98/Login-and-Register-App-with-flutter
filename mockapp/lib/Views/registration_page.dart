@@ -6,27 +6,24 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:mockapp/Constants/app_strings.dart';
-import 'package:mockapp/Providers/authentication/login_provider.dart';
 import 'package:mockapp/Providers/registrationProvider.dart';
 import 'package:mockapp/Theme/text_styles.dart';
 import 'package:mockapp/Utils/authentication_status.dart';
 import 'package:mockapp/widgets/common/authentication_header.dart';
-import 'package:mockapp/widgets/login_form.dart';
+import 'package:mockapp/widgets/register_form.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  late AuthenticationProvider authProvider;
+class _RegisterPageState extends State<RegisterPage> {
   late RegisterProvider registerProvider;
 
   @override
   void initState() {
-    authProvider = Provider.of<AuthenticationProvider>(context, listen: false);
     registerProvider = Provider.of<RegisterProvider>(context, listen: false);
     super.initState();
   }
@@ -35,34 +32,29 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.zero,
         children: [
           AutHeader(
             children: [
-              Text(
-                AppStrings.signInToYourNAccount,
-                style: titleLarge,
-              ),
+              Text(AppStrings.register, style: titleLarge),
               const SizedBox(height: 6),
-              Text(AppStrings.signInToYourAccount, style: lightBodySmall),
+              Text(AppStrings.createYourAccount, style: lightBodySmall),
             ],
           ),
-          const LoginForm(),
+          const RegisterForm(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                AppStrings.doNotHaveAnAccount,
+                AppStrings.iHaveAnAccount,
                 style: darkBodySmall,
               ),
-              const SizedBox(width: 4),
               TextButton(
                 onPressed: () {
-                  authProvider.resetErrorMessage();
+                  registerProvider.resetErrorMessage();
                   registerProvider.registrationStatus =
-                      RegistrationStatusEnum.unRegistered;
+                      RegistrationStatusEnum.login;
                 },
-                child: const Text(AppStrings.register),
+                child: const Text(AppStrings.login),
               ),
             ],
           ),
